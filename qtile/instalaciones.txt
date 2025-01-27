@@ -1,0 +1,48 @@
+# Firewall
+fwd
+
+#wifi 
+networmanager network-manager-applet
+
+# BLuetooth
+sudo pacman -S bluez bluez-utils
+sudo pacman -S pulseaudio-bluetooth
+
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+
+# Interfaz grafica para buethooth
+sudo pacman -S blueman
+
+#explorador de archivos
+thunar
+# Para visualizar las imagenes dentro del editor 
+sudo pacman -S tumbler ffmpegthumbnailer
+
+# Descargar un gestor de basura
+
+# Configuracion del touchpad
+# Verificar que use libinput
+sudo pacman -S libinput xf86-input-libinput
+xinput list
+xinput list-props "nombre-del-touchpad"
+sudo nano /etc/X11/xorg.conf.d/40-libinput.conf
+
+  GNU nano 8.2                /etc/X11/xorg.conf.d/40-touchpad.conf                           
+Section "InputClass"
+    Identifier "DELL Touchpad"
+    MatchIsTouchpad "on"
+    Driver "libinput"
+    Option "Tapping" "on" # habilitar tapping para click
+    Option "NaturalScrolling" "true"
+    Option "ClickMethod" "clickfinger" # Configuracion de clicks con dos dedos
+    Option "ScrollMethod" "twofinger" # Usar dos dedos para desplazarse
+    Option "ScrollPixelDistance" "30" # AJuste de sensibilidad al scroll
+EndSection
+
+
+# Para la configuracion de multimedia
+sudo pacman -S playerctl     
+
+# Mas fuentes instalando y descargando de nerdfonts
+# Symbols Nerd Font

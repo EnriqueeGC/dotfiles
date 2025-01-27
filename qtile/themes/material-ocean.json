@@ -1,0 +1,70 @@
+{
+    "dark": [
+        "#0f101a",
+        "#0f101a"
+    ],
+    "grey": [
+        "#353c4a",
+        "#353c4a"
+    ],
+    "light": [
+        "#f1ffff",
+        "#f1ffff"
+    ],
+    "text": [
+        "#0f101a",
+        "#0f101a"
+    ],
+    "focus": [
+        "#a151d3",
+        "#a151d3"
+    ],
+    "active": [
+        "#f1ffff",
+        "#f1ffff"
+    ],
+    "inactive": [
+        "#4c566a",
+        "#4c566a"
+    ],
+    "normal": [
+        "#295c6f",
+        "#295c6f"
+    ],
+    "urgent": [
+        "#F07178",
+        "#F07178"
+    ],
+    "color1": [
+        "#a151d3",
+        "#a151d3"
+    ],
+    "color2": [
+        "#F07178",
+        "#F07178"
+    ],
+    "color3": [
+        "#fb9f7f",
+        "#fb9f7f"
+    ],
+    "color4": [
+        "#ffd47e",
+        "#ffd47e"
+    ],
+    "color5": [
+        "#747c80",
+        "#747c80"
+    ],
+    "negro_azulado": [
+        "#1E293B",
+        "#1E293B"
+    ],
+    "morado_oscuro": [
+        "#9D4EDD",
+        "#9D4EDD"
+    ],
+    "azul_cielo": [
+        "#60A5FA",
+        "#60A5FA"
+    ]
+}
