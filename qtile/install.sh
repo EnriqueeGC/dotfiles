@@ -62,10 +62,9 @@ done
 # yay
 if ! command -v yay &>/dev/null; then
   success_message "Installing yay"
-  git clone https://aur.archlinux.org/yay.git /tmp/yay
-  cd /tmp/yay
-  makepkg -si --noconfirm
-  cd - && rm -rf /tmp/yay
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si
 fi
 
 # clone git config
