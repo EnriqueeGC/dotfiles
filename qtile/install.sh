@@ -23,6 +23,7 @@ PACKAGES=(
   picom
   playerctl
   polkit-gnome
+  feh
 )
 
 
