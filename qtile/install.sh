@@ -78,10 +78,10 @@ pacman -Syu --noconfirm
 success_message "Installing basics packages.... ${PACKAGES[*]}...."
 for PACKAGE in "${PACKAGES[@]}"; do
     if pacman -Qi "$PACKAGE" &>/dev/null; then
-        success_message "$paquete ya está instalado."
+        success_message "$PACKAGE ya está instalado."
     else
         if ! pacman -S --noconfirm "$PACKAGE"; then
-            error_message "Error instaling $PACKAGE...."
+            success_message "Error instaling $PACKAGE...."
         else
             success_message "Packages installed successfully"
         fi
@@ -91,9 +91,8 @@ done
 # enable services
 systemctl enable lightdm
 
-
 # Coping qtile files
-if [ -d "$DOTFLES_DIR" ]; then
+if [ -d "$DOTFILES_DIR" ]; then
     echo "La carpeta qtile encontrada en: $DOTFILES_DIR"
 
     if [ ! -d "$CONFIG_DIR" ]; then
