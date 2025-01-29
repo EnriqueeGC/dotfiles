@@ -48,6 +48,7 @@ PACKAGES=(
   unzip
   flameshot
   fastfetch
+  xdg-user-dirs-update
 )
 
 USER=$(logname)
@@ -79,7 +80,7 @@ reset="\033[0m"
 
 # print messages with green color
 function success_message(){
-  echo -e "$(green)$1${reset}"
+  echo -e "${green}$1${reset}"
 }
 
 if [[ $EUID -ne 0 ]]; then 
@@ -138,6 +139,10 @@ sudo cp -r "$FONTS_SRC" "$FONTS_DEST"
 
 # Cambiar permisos si es necesario
 chown -R "$USER:$USER" "$CONFIG_DIR"
+
+# creando carpetas
+echo "creando directorios...."
+xdg-user-dirs-update
 
 # Finalización
 success_message "Configuración de post-instalación completada con éxito."

@@ -14,10 +14,6 @@ pomodoro_colors = {
 def execute_script():
     qtile.cmd_spawn("/home/enrique/.config/scripts/Power/power_menu.sh")
 
-# Función para iniciar una notificación cuando el Pomodoro finaliza
-def notify_pomodoro():
-    qtile.cmd_spawn("notify-send 'Pomodoro' '¡Tiempo de descanso!'")
-
 def base(fg='text', bg='dark'): 
     return {
         'foreground': colors[fg],
@@ -96,28 +92,6 @@ primary_widgets = [
     widget.WindowName(**base(fg='focus'), fontsize=16, padding=5, font='UbuntuMono Nerd Font Bold'),
 
     separator(),
-
-    # Widget Pomodoro minimalista con nueva configuración de colores
-    widget.Pomodoro(
-    background=pomodoro_colors['background'],  # Fondo del widget
-    color_inactive=pomodoro_colors['text_inactive'],  # Color del texto inactivo
-    color_active=pomodoro_colors['text_active'],  # Color del texto activo
-    color_break=pomodoro_colors['text_break'],  # Color del texto durante el descanso
-    length_pomodori=10,  # Duración del Pomodoro en minutos
-    length_short_break=5,  # Duración del descanso corto en minutos
-    length_long_break=15,  # Duración del descanso largo en minutos
-    notification_on=True,  # Activar notificaciones
-    prefix_inactive='⏳ Inicia',  # Texto cuando está inactivo
-    prefix_active='󱓟 Trabajando:',  # Texto durante el trabajo activo
-    prefix_break='☕ Descanso:',  # Texto durante el descanso
-    update_interval=1,  # Actualización por segundo
-    on_complete=notify_pomodoro,  # Función para enviar notificación al finalizar
-    padding=10,  # Espaciado alrededor del texto
-    fontsize=18,  # Tamaño de la fuente
-    font='UbuntuMono Nerd Font Bold',  # Fuente utilizada
-    border_width=2,  # Ancho del borde del widget
-    border_color=pomodoro_colors['border'],  # Color del borde
-    ),
 
     widget.CurrentLayoutIcon(scale=0.65, background=colors['dark']),
 
