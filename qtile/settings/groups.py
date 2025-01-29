@@ -23,7 +23,7 @@ from .keys import mod, keys
 groups = [Group(i) for i in [
     "   ", # nf-fa-firefox
     "   ", # nf-dev-vscode
-    "   ", # nf-dev-terminal
+    "   ", # nf-dev-terminal
     "   ", # nf-fae-vim
     "   ",  # nf-oct-git_merge
     "   ", # nf-linux-docker

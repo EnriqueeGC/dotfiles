@@ -48,7 +48,7 @@ PACKAGES=(
   unzip
   flameshot
   fastfetch
-  xdg-user-dirs-update
+  xdg-user-dirs
 )
 
 USER=$(logname)
@@ -77,10 +77,16 @@ FONTS_DEST="/usr/share/fonts"
 # output colors
 green="\033[0;32m"
 reset="\033[0m"
+red="\033[0;31m"
 
 # print messages with green color
 function success_message(){
   echo -e "${green}$1${reset}"
+}
+
+# Print messages with red color (error)
+function error_message() {
+  echo -e "${red}$1${reset}"
 }
 
 if [[ $EUID -ne 0 ]]; then 
@@ -99,7 +105,7 @@ for PACKAGE in "${PACKAGES[@]}"; do
         success_message "$PACKAGE ya está instalado."
     else
         if ! pacman -S --noconfirm "$PACKAGE"; then
-            success_message "Error instaling $PACKAGE...."
+            error_message "Error instaling $PACKAGE...."
         else
             success_message "Packages installed successfully"
         fi
@@ -111,25 +117,25 @@ systemctl enable lightdm
 
 # Coping qtile files
 if [ -d "$DOTFILES_DIR" ]; then
-    echo "La carpeta qtile encontrada en: $DOTFILES_DIR"
+    success_message "La carpeta qtile encontrada en: $DOTFILES_DIR"
 
     if [ ! -d "$CONFIG_DIR" ]; then
-        echo "el directoro .config no existe..... creandolo"
+        error_message "el directoro .config no existe..... creandolo"
         mkdir -p "$CONFIG_DIR"
     fi
 
     cp -r "$QTILE_SRC" "$QTILE_DEST" 
-    echo "carpeta qtile se copiada exitosamente"
+    success_message "carpeta qtile se copiada exitosamente"
     cp -r "$ROFI_SRC" "$ROFI_DEST"
-    echo "carpeta rofi se ccopiada exitosamente"
+    success_message "carpeta rofi se ccopiada exitosamente"
     cp -r "$PICOM_SRC" "$PICOM_DEST"
-    echo "carpeta picom se copiada exitosamente"
+    success_message "carpeta picom se copiada exitosamente"
     cp -r "$SCRIPT_SRC" "$SCRIPT_DEST"
-    echo "carpeta script se copiada exitosamente"
+    success_message "carpeta script se copiada exitosamente"
     cp -r "$WALLPAPER_SRC" "$WALLPAPER_DEST"
-    echo "carpeta wallpaper copiada exitosamente"
+    success_message "carpeta wallpaper copiada exitosamente"
 else
-    echo "Error: la carpetea qtile no se encuentra en $QTILE_DIR"
+    error_message "Error: la carpetea qtile no se encuentra en $QTILE_DIR"
     exit 1
 fi
 
@@ -141,7 +147,7 @@ sudo cp -r "$FONTS_SRC" "$FONTS_DEST"
 chown -R "$USER:$USER" "$CONFIG_DIR"
 
 # creando carpetas
-echo "creando directorios...."
+success_message "creando directorios...."
 xdg-user-dirs-update
 
 # Finalización
