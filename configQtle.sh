@@ -1,17 +1,23 @@
 #!/bin/bash
 
-CONFIG_DIR="$HOME/.config/qtile"
-DOTFILES="$HOME/dotfiles/qtile"
+USER=$(logname)
 
-echo "Copiando configuracion de qtile desde $DOTFLES"
-if [[ -d "$CONFIG_DIR" ]]; then
-    mv "$CONFIG_DIR" "$CONFIG_DIR.bak"
-    echo "copia de seguridad de la configuracion existente"
-fi
+DOTFILES_DIR="/home/$USER/dotfiles"
+QTILE_SRC="$DOTFILES_DIR/qtile"
+CONFIG_DIR="/home/$USER/.config"
+QTILE_DEST="$CONFIG_DIR/qtile"
 
-if [[ -d "$CONFIG_DIR" ]]; then
-    cp -r "$DOTFILES" "$CONFIG_DIR"
-    echo "configuracion de qtile copiada exitosamente"
+if [ -d "$DOTFLES_DIR" ]; then
+    echo "La carpeta qtile encontrada en: $DOTFILES_DIR"
+
+    if [ ! -d "$CONFIG_DIR" ]; then
+        echo "el directoro .config no existe..... creandolo"
+        mkdir -p "$CONFIG_DIR"
+    fi
+
+    cp -r "$QTILE_SRC" "$QTILE_DEST" 
+    echo "la carpeta qtile se copio exitosamente"
 else
-    echo "EL DIRECTORIO DOTFILES NO EXISTE"
+    echo "Error: la carpetea qtile no se encuentra en $QTILE_DIR"
+    exit 1
 fi

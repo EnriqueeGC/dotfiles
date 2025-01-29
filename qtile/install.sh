@@ -3,8 +3,6 @@
 # stop if error is detected
 set -e
 
-CONFIG_REPO="https://github.com/EnriqueeGC/dotfiles.git"
-CONFIG_DIR="$HOME/.config/qtile"
 PACKAGES=(
   base-devel
   git
@@ -14,7 +12,6 @@ PACKAGES=(
   xorg-server
   qtile
   gufw
-  network-manager-applet
   bluez
   bluez-utils
   pulseaudio-bluetooth
@@ -24,8 +21,40 @@ PACKAGES=(
   playerctl
   polkit-gnome
   feh
+  lightdm
+  lightdm-gtk-greeter
+  kitty
+  pamixer
+  brightnessctl
+  arandr
+  udiskie
+  ntfs-3g
+  network-manager-applet
+  volumeicon
+  cbatticon
+  libnotify
+  notification-daemon
+  glib2 
+  gvfs
+  lxappearance
+  geeqie
+  vlc
+  ttf-dejavu 
+  ttf-liberation 
+  noto-fonts
+  rofi
+  wich
+  rofi-theme-selector
+  unzip
+  flameshot
 )
 
+USER=$(logname)
+
+DOTFILES_DIR="/home/$USER/dotfiles"
+QTILE_SRC="$DOTFILES_DIR/qtile"
+CONFIG_DIR="/home/$USER/.config"
+QTILE_DEST="$CONFIG_DIR/qtile"
 
 # output colors
 green="\033[0;32m"
@@ -47,18 +76,37 @@ pacman -Syu --noconfirm
 
 # Install basic packages
 success_message "Installing basics packages.... ${PACKAGES[*]}...."
-for paquete in "${PACKAGE[@]}"; do
-    if pacman -Qi "$paquete" &>/dev/null; then
+for PACKAGE in "${PACKAGES[@]}"; do
+    if pacman -Qi "$PACKAGE" &>/dev/null; then
         success_message "$paquete ya está instalado."
     else
-        if ! pacman -S --noconfirm "$paquete"; then
-            error_message "Error instaling $paquete...."
+        if ! pacman -S --noconfirm "$PACKAGE"; then
+            error_message "Error instaling $PACKAGE...."
         else
             success_message "Packages installed successfully"
         fi
     fi
 done
 
+# enable services
+systemctl enable lightdm
+
+
+# Coping qtile files
+if [ -d "$DOTFLES_DIR" ]; then
+    echo "La carpeta qtile encontrada en: $DOTFILES_DIR"
+
+    if [ ! -d "$CONFIG_DIR" ]; then
+        echo "el directoro .config no existe..... creandolo"
+        mkdir -p "$CONFIG_DIR"
+    fi
+
+    cp -r "$QTILE_SRC" "$QTILE_DEST" 
+    echo "la carpeta qtile se copio exitosamente"
+else
+    echo "Error: la carpetea qtile no se encuentra en $QTILE_DIR"
+    exit 1
+fi
 
 # yay
 if ! command -v yay &>/dev/null; then
@@ -67,14 +115,6 @@ if ! command -v yay &>/dev/null; then
   cd yay
   makepkg -si
 fi
-
-# clone git config
-success_message "cloning configuration from &CONFIG_REPO"
-if [[ -d "$CONFIG_DIR" ]]; then
-    mv "$CONFIG_DIR" "$CONFIG_DIR.bak"
-    success_message "Copia de seguridad de la configuración existente guardada como $CONFIG_DIR.bak"
-fi
-git clone "$CONFIG_REPO" "$CONFIG_DIR"
 
 # Cambiar permisos si es necesario
 chown -R "$USER:$USER" "$CONFIG_DIR"
