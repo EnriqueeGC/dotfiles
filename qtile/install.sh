@@ -47,6 +47,7 @@ PACKAGES=(
   rofi-theme-selector
   unzip
   flameshot
+  fastfetch
 )
 
 USER=$(logname)
@@ -55,6 +56,18 @@ DOTFILES_DIR="/home/$USER/dotfiles"
 QTILE_SRC="$DOTFILES_DIR/qtile"
 CONFIG_DIR="/home/$USER/.config"
 QTILE_DEST="$CONFIG_DIR/qtile"
+# rofi
+ROFI_SRC="$DOTFILES_DIR/rofi"
+ROFI_DEST="$CONFIG_DIR/rofi"
+# picom
+PICOM_SRC="$DOTFILES_DIR/picom"
+PICOM_DEST="$CONFIG_DIR/picom"
+# scripts
+SCRIPT_SRC="$DOTFILES_DIR/scripts"
+SCRIPT_DEST="$CONFIG_DIR/scripts"
+# wallpapers
+WALLPAPER_SRC="$DOTFILES_DIR/wallpapers"
+WALLPAPER_DEST="$CONFIG_DIR/wallpapers"
 
 # output colors
 green="\033[0;32m"
@@ -101,11 +114,21 @@ if [ -d "$DOTFILES_DIR" ]; then
     fi
 
     cp -r "$QTILE_SRC" "$QTILE_DEST" 
-    echo "la carpeta qtile se copio exitosamente"
+    echo "carpeta qtile se copiada exitosamente"
+    cp -r "$ROFI_SRC" "$ROFI_DEST"
+    echo "carpeta rofi se ccopiada exitosamente"
+    cp -r "$PICOM_SRC" "$PICOM_DEST"
+    echo "carpeta picom se copiada exitosamente"
+    cp -r "$SCRIPT_SRC" "$SCRIPT_DEST"
+    echo "carpeta script se copiada exitosamente"
+    cp -r "$WALLPAPER_SRC" "$WALLPAPER_DEST"
+    echo "carpeta wallpaper copiada exitosamente"
 else
     echo "Error: la carpetea qtile no se encuentra en $QTILE_DIR"
     exit 1
 fi
+
+# coping other configuration files
 
 # yay
 if ! command -v yay &>/dev/null; then
