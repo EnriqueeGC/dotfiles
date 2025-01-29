@@ -69,6 +69,10 @@ SCRIPT_DEST="$CONFIG_DIR/scripts"
 WALLPAPER_SRC="$DOTFILES_DIR/wallpapers"
 WALLPAPER_DEST="$CONFIG_DIR/wallpapers"
 
+# fonts
+FONTS_SRC="$DOTFILES_DIR/fonts"
+FONTS_DEST="/usr/share/fonts"
+
 # output colors
 green="\033[0;32m"
 reset="\033[0m"
@@ -128,15 +132,9 @@ else
     exit 1
 fi
 
-# coping other configuration files
-
-# yay
-if ! command -v yay &>/dev/null; then
-  success_message "Installing yay"
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si
-fi
+# copy fonts files
+success_message "Copiando fuentes..."
+sudo cp -r "$FONTS_SRC" "$FONTS_DEST"
 
 # Cambiar permisos si es necesario
 chown -R "$USER:$USER" "$CONFIG_DIR"
